@@ -32,8 +32,7 @@ setup()
 
 
 if overlay_warning:
-    sys.stderr.write(
-        """
+    sys.stderr.write("""
 
 ========
 WARNING!
@@ -50,6 +49,4 @@ should manually remove the
 
 directory and re-install Django.
 
-"""
-        % {"existing_path": existing_path}
-    )
+""" % {"existing_path": existing_path})

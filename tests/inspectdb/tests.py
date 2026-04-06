@@ -559,19 +559,15 @@ class InspectDBTransactionalTests(TransactionTestCase):
     def test_include_partitions(self):
         """inspectdb --include-partitions creates models for partitions."""
         with connection.cursor() as cursor:
-            cursor.execute(
-                """\
+            cursor.execute("""\
                 CREATE TABLE inspectdb_partition_parent (name text not null)
                 PARTITION BY LIST (left(upper(name), 1))
-            """
-            )
-            cursor.execute(
-                """\
+            """)
+            cursor.execute("""\
                 CREATE TABLE inspectdb_partition_child
                 PARTITION OF inspectdb_partition_parent
                 FOR VALUES IN ('A', 'B', 'C')
-            """
-            )
+            """)
         out = StringIO()
         partition_model_parent = "class InspectdbPartitionParent(models.Model):"
         partition_model_child = "class InspectdbPartitionChild(models.Model):"
@@ -606,8 +602,7 @@ class InspectDBTransactionalTests(TransactionTestCase):
             cursor.execute(
                 "CREATE SERVER inspectdb_server FOREIGN DATA WRAPPER file_fdw"
             )
-            cursor.execute(
-                """
+            cursor.execute("""
                 CREATE FOREIGN TABLE inspectdb_iris_foreign_table (
                     petal_length real,
                     petal_width real,
@@ -617,8 +612,7 @@ class InspectDBTransactionalTests(TransactionTestCase):
                     program 'echo 1,2,3,4',
                     format 'csv'
                 )
-                """
-            )
+                """)
         out = StringIO()
         foreign_table_model = "class InspectdbIrisForeignTable(models.Model):"
         foreign_table_managed = "managed = False"

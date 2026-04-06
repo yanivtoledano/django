@@ -100,9 +100,11 @@ class Media:
 
     def render_js(self):
         return [
-            path.__html__()
-            if hasattr(path, "__html__")
-            else format_html('<script src="{}"></script>', self.absolute_path(path))
+            (
+                path.__html__()
+                if hasattr(path, "__html__")
+                else format_html('<script src="{}"></script>', self.absolute_path(path))
+            )
             for path in self._js
         ]
 
@@ -112,12 +114,14 @@ class Media:
         media = sorted(self._css)
         return chain.from_iterable(
             [
-                path.__html__()
-                if hasattr(path, "__html__")
-                else format_html(
-                    '<link href="{}" media="{}" rel="stylesheet">',
-                    self.absolute_path(path),
-                    medium,
+                (
+                    path.__html__()
+                    if hasattr(path, "__html__")
+                    else format_html(
+                        '<link href="{}" media="{}" rel="stylesheet">',
+                        self.absolute_path(path),
+                        medium,
+                    )
                 )
                 for path in self._css[medium]
             ]

@@ -1,4 +1,5 @@
 """JsLex: a lexer for JavaScript"""
+
 # Originally from https://bitbucket.org/ned/jslex
 import re
 
@@ -147,12 +148,10 @@ class JsLexer(Lexer):
         ),
         Tok(
             "punct",
-            literals(
-                """
+            literals("""
                          >>>= === !== >>> <<= >>= <= >= == != << >> &&
                          || += -= *= %= &= |= ^=
-                         """
-            ),
+                         """),
             next="reg",
         ),
         Tok("punct", literals("++ -- ) ]"), next="div"),

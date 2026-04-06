@@ -22,14 +22,12 @@ class SelectTest(WidgetTest):
             self.widget(choices=self.beatles),
             "beatle",
             "J",
-            html=(
-                """<select name="beatle">
+            html=("""<select name="beatle">
             <option value="J" selected>John</option>
             <option value="P">Paul</option>
             <option value="G">George</option>
             <option value="R">Ringo</option>
-            </select>"""
-            ),
+            </select>"""),
         )
 
     def test_render_none(self):
@@ -40,14 +38,12 @@ class SelectTest(WidgetTest):
             self.widget(choices=self.beatles),
             "beatle",
             None,
-            html=(
-                """<select name="beatle">
+            html=("""<select name="beatle">
             <option value="J">John</option>
             <option value="P">Paul</option>
             <option value="G">George</option>
             <option value="R">Ringo</option>
-            </select>"""
-            ),
+            </select>"""),
         )
 
     def test_render_label_value(self):
@@ -59,14 +55,12 @@ class SelectTest(WidgetTest):
             self.widget(choices=self.beatles),
             "beatle",
             "John",
-            html=(
-                """<select name="beatle">
+            html=("""<select name="beatle">
             <option value="J">John</option>
             <option value="P">Paul</option>
             <option value="G">George</option>
             <option value="R">Ringo</option>
-            </select>"""
-            ),
+            </select>"""),
         )
 
     def test_render_selected(self):
@@ -79,15 +73,13 @@ class SelectTest(WidgetTest):
             self.widget(choices=choices),
             "choices",
             "0",
-            html=(
-                """<select name="choices">
+            html=("""<select name="choices">
             <option value="0" selected>0</option>
             <option value="1">1</option>
             <option value="2">2</option>
             <option value="3">3</option>
             <option value="0">extra</option>
-            </select>"""
-            ),
+            </select>"""),
         )
 
     def test_constructor_attrs(self):
@@ -102,13 +94,11 @@ class SelectTest(WidgetTest):
             widget,
             "num",
             2,
-            html=(
-                """<select name="num" class="super" id="super">
+            html=("""<select name="num" class="super" id="super">
               <option value="1">1</option>
               <option value="2" selected>2</option>
               <option value="3">3</option>
-            </select>"""
-            ),
+            </select>"""),
         )
 
     def test_compare_to_str(self):
@@ -119,37 +109,31 @@ class SelectTest(WidgetTest):
             self.widget(choices=[("1", "1"), ("2", "2"), ("3", "3")]),
             "num",
             2,
-            html=(
-                """<select name="num">
+            html=("""<select name="num">
                 <option value="1">1</option>
                 <option value="2" selected>2</option>
                 <option value="3">3</option>
-                </select>"""
-            ),
+                </select>"""),
         )
         self.check_html(
             self.widget(choices=[(1, 1), (2, 2), (3, 3)]),
             "num",
             "2",
-            html=(
-                """<select name="num">
+            html=("""<select name="num">
                 <option value="1">1</option>
                 <option value="2" selected>2</option>
                 <option value="3">3</option>
-                </select>"""
-            ),
+                </select>"""),
         )
         self.check_html(
             self.widget(choices=[(1, 1), (2, 2), (3, 3)]),
             "num",
             2,
-            html=(
-                """<select name="num">
+            html=("""<select name="num">
                 <option value="1">1</option>
                 <option value="2" selected>2</option>
                 <option value="3">3</option>
-                </select>"""
-            ),
+                </select>"""),
         )
 
     def test_choices_constructor(self):
@@ -158,13 +142,11 @@ class SelectTest(WidgetTest):
             widget,
             "num",
             2,
-            html=(
-                """<select name="num">
+            html=("""<select name="num">
             <option value="1">1</option>
             <option value="2" selected>2</option>
             <option value="3">3</option>
-            </select>"""
-            ),
+            </select>"""),
         )
 
     def test_choices_constructor_generator(self):
@@ -182,29 +164,25 @@ class SelectTest(WidgetTest):
             widget,
             "num",
             2,
-            html=(
-                """<select name="num">
+            html=("""<select name="num">
             <option value="0">0</option>
             <option value="1">1</option>
             <option value="2" selected>2</option>
             <option value="3">3</option>
             <option value="4">4</option>
-            </select>"""
-            ),
+            </select>"""),
         )
         self.check_html(
             widget,
             "num",
             3,
-            html=(
-                """<select name="num">
+            html=("""<select name="num">
             <option value="0">0</option>
             <option value="1">1</option>
             <option value="2">2</option>
             <option value="3" selected>3</option>
             <option value="4">4</option>
-            </select>"""
-            ),
+            </select>"""),
         )
 
     def test_choices_escaping(self):
@@ -213,12 +191,10 @@ class SelectTest(WidgetTest):
             self.widget(choices=choices),
             "escape",
             None,
-            html=(
-                """<select name="escape">
+            html=("""<select name="escape">
             <option value="bad">you &amp; me</option>
             <option value="good">you &gt; me</option>
-            </select>"""
-            ),
+            </select>"""),
         )
 
     def test_choices_unicode(self):
@@ -226,8 +202,7 @@ class SelectTest(WidgetTest):
             self.widget(choices=[("ŠĐĆŽćžšđ", "ŠĐabcĆŽćžšđ"), ("ćžšđ", "abcćžšđ")]),
             "email",
             "ŠĐĆŽćžšđ",
-            html=(
-                """
+            html=("""
                 <select name="email">
                 <option value="\u0160\u0110\u0106\u017d\u0107\u017e\u0161\u0111"
                     selected>
@@ -236,8 +211,7 @@ class SelectTest(WidgetTest):
                 <option value="\u0107\u017e\u0161\u0111">abc\u0107\u017e\u0161\u0111
                 </option>
                 </select>
-                """
-            ),
+                """),
         )
 
     def test_choices_optgroup(self):
@@ -248,15 +222,13 @@ class SelectTest(WidgetTest):
             self.nested_widget,
             "nestchoice",
             None,
-            html=(
-                """<select name="nestchoice">
+            html=("""<select name="nestchoice">
             <option value="outer1">Outer 1</option>
             <optgroup label="Group &quot;1&quot;">
             <option value="inner1">Inner 1</option>
             <option value="inner2">Inner 2</option>
             </optgroup>
-            </select>"""
-            ),
+            </select>"""),
         )
 
     def test_choices_select_outer(self):
@@ -264,15 +236,13 @@ class SelectTest(WidgetTest):
             self.nested_widget,
             "nestchoice",
             "outer1",
-            html=(
-                """<select name="nestchoice">
+            html=("""<select name="nestchoice">
             <option value="outer1" selected>Outer 1</option>
             <optgroup label="Group &quot;1&quot;">
             <option value="inner1">Inner 1</option>
             <option value="inner2">Inner 2</option>
             </optgroup>
-            </select>"""
-            ),
+            </select>"""),
         )
 
     def test_choices_select_inner(self):
@@ -280,15 +250,13 @@ class SelectTest(WidgetTest):
             self.nested_widget,
             "nestchoice",
             "inner1",
-            html=(
-                """<select name="nestchoice">
+            html=("""<select name="nestchoice">
             <option value="outer1">Outer 1</option>
             <optgroup label="Group &quot;1&quot;">
             <option value="inner1" selected>Inner 1</option>
             <option value="inner2">Inner 2</option>
             </optgroup>
-            </select>"""
-            ),
+            </select>"""),
         )
 
     @override_settings(USE_THOUSAND_SEPARATOR=True)

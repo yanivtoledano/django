@@ -479,8 +479,9 @@ class AuthenticationFormTest(TestDataMixin, TestCase):
             user_login_failed.disconnect(signal_handler)
 
     def test_inactive_user_i18n(self):
-        with self.settings(USE_I18N=True), translation.override(
-            "pt-br", deactivate=True
+        with (
+            self.settings(USE_I18N=True),
+            translation.override("pt-br", deactivate=True),
         ):
             # The user is inactive.
             data = {
@@ -899,9 +900,9 @@ class UserChangeFormTest(TestDataMixin, TestCase):
         class MyUserForm(UserChangeForm):
             def __init__(self, *args, **kwargs):
                 super().__init__(*args, **kwargs)
-                self.fields[
-                    "groups"
-                ].help_text = "These groups give users different permissions"
+                self.fields["groups"].help_text = (
+                    "These groups give users different permissions"
+                )
 
             class Meta(UserChangeForm.Meta):
                 fields = ("groups",)
@@ -1092,7 +1093,7 @@ class PasswordResetFormTest(TestDataMixin, TestCase):
         self.assertEqual(len(mail.outbox), 0)
 
     def test_cleaned_data(self):
-        (user, username, email) = self.create_dummy_user()
+        user, username, email = self.create_dummy_user()
         data = {"email": email}
         form = PasswordResetForm(data)
         self.assertTrue(form.is_valid())
@@ -1161,7 +1162,7 @@ class PasswordResetFormTest(TestDataMixin, TestCase):
         """
         Inactive user cannot receive password reset email.
         """
-        (user, username, email) = self.create_dummy_user()
+        user, username, email = self.create_dummy_user()
         user.is_active = False
         user.save()
         form = PasswordResetForm({"email": email})
@@ -1188,7 +1189,7 @@ class PasswordResetFormTest(TestDataMixin, TestCase):
         parameter passed in.
         Test to ensure original behavior is unchanged after the parameter was added.
         """
-        (user, username, email) = self.create_dummy_user()
+        user, username, email = self.create_dummy_user()
         form = PasswordResetForm({"email": email})
         self.assertTrue(form.is_valid())
         form.save()
@@ -1210,7 +1211,7 @@ class PasswordResetFormTest(TestDataMixin, TestCase):
         Test to ensure that a multipart email is sent with both text/plain
         and text/html parts.
         """
-        (user, username, email) = self.create_dummy_user()
+        user, username, email = self.create_dummy_user()
         form = PasswordResetForm({"email": email})
         self.assertTrue(form.is_valid())
         form.save(
