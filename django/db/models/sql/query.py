@@ -6,6 +6,7 @@ themselves do not have to (and could be backed by things other than SQL
 databases). The abstraction barrier only works one way: this module has to know
 all about the internals of models in order to get the information it needs.
 """
+
 import copy
 import difflib
 import functools
@@ -76,9 +77,11 @@ def get_children_from_q(q):
 def rename_prefix_from_q(prefix, replacement, q):
     return Q.create(
         [
-            rename_prefix_from_q(prefix, replacement, c)
-            if isinstance(c, Node)
-            else (c[0].replace(prefix, replacement, 1), c[1])
+            (
+                rename_prefix_from_q(prefix, replacement, c)
+                if isinstance(c, Node)
+                else (c[0].replace(prefix, replacement, 1), c[1])
+            )
             for c in q.children
         ],
         q.connector,

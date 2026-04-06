@@ -108,9 +108,11 @@ class ModelIterable(BaseIterable):
                 related_objs,
                 operator.attrgetter(
                     *[
-                        field.attname
-                        if from_field == "self"
-                        else queryset.model._meta.get_field(from_field).attname
+                        (
+                            field.attname
+                            if from_field == "self"
+                            else queryset.model._meta.get_field(from_field).attname
+                        )
                         for from_field in field.from_fields
                     ]
                 ),
@@ -1362,9 +1364,7 @@ class QuerySet(AltersData):
         clone._iterable_class = (
             NamedValuesListIterable
             if named
-            else FlatValuesListIterable
-            if flat
-            else ValuesListIterable
+            else FlatValuesListIterable if flat else ValuesListIterable
         )
         return clone
 
@@ -1630,9 +1630,11 @@ class QuerySet(AltersData):
         if names is None:
             names = set(
                 chain.from_iterable(
-                    (field.name, field.attname)
-                    if hasattr(field, "attname")
-                    else (field.name,)
+                    (
+                        (field.name, field.attname)
+                        if hasattr(field, "attname")
+                        else (field.name,)
+                    )
                     for field in self.model._meta.get_fields()
                 )
             )
